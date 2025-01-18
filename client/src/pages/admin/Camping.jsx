@@ -9,7 +9,6 @@ import CategoryInput from "@/components/form/CategoryInput";
 import Mainmap from "@/components/map/Mainmap";
 
 
-
 const Camping = () => {
     const { register, handleSubmit,formState ,setValue } = useForm({ 
         resolver: zodResolver(campingSchema) 
@@ -18,7 +17,7 @@ const Camping = () => {
 
 
     
-    const jukkruSubmit = async (data) => {
+    const CampingSubmit = async (data) => {
 
         await new Promise((resolove)=> setTimeout(resolove,3000))
         
@@ -32,7 +31,7 @@ const Camping = () => {
                 create camping
             </h1>
             <div className='border p-8 rounded-md'>
-                <form onSubmit={handleSubmit(jukkruSubmit)}>
+                <form onSubmit={handleSubmit(CampingSubmit)}>
                     <div className="grid md:grid-cols-2 gap-4 mt-4">
                         <FormInputs
                             register={register}
