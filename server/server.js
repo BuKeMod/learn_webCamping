@@ -7,12 +7,15 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import handleError from "./middlewares/error.js";
 
+import 'dotenv/config'
+import { clerkMiddleware } from '@clerk/express'
 ///////////////////////
 const app = express()
-
+//////////////////////
 app.use(cors())
 app.use(json())
 app.use(morgan('dev'))
+app.use(clerkMiddleware())
 
 ///////////////////////
 
@@ -23,16 +26,24 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-readdirSync('./routes').forEach(async (filename) => {
+// readdirSync('./routes').forEach(async (filename) => {
 
-  const { default: route } = await import(`./routes/${filename}`);
-  app.use('/api', route);
-  app.use(handleError);
-});
+//   const { default: route } = await import(`./routes/${filename}`);
+//   app.use('/api', route);
+//   app.use(handleError);
+// });
 
+const routeFiles = readdirSync('./routes');
 
+await Promise.all(
+  routeFiles.map(async (filename) => {
+    const { default: route } = await import(`./routes/${filename}`);
+    app.use('/api', route);
+  })
+);
 
-
+// ย้าย handleError ไปไว้หลังจากโหลด routes ทั้งหมดเสร็จ
+app.use(handleError);
 
 
  

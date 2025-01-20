@@ -1,15 +1,21 @@
+import renderError from "../utils/renderError.js";
+import { clerkClient, requireAuth } from '@clerk/express'
 
-const authCheck = (req,res,next)=>{
+const authCheck = async (req,res,next)=>{
     try {
-        console.log('Hello middleware');
-        if(true){
-            next()
-        }else{
-            res.status(401).json({message:"No access Denied"})
-        }
-        
+      const userId = req.auth.userId
+    
+      if(!userId){
+        return renderError(401,'Unauthorize')
+      }
+      const user = await clerkClient.users.getUser(userId)
+     
+      req.user = user
+
+      
+      next()
     } catch (error) {
-        console.log(error);
+        next(error)
         
     }
     

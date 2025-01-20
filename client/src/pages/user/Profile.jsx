@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form"
 import { profileSchema } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import createprofile from "@/service/profile";
+
 import { useAuth } from "@clerk/clerk-react";
 
 
@@ -21,19 +23,16 @@ const Profile = () => {
     const ProfileSubmit = async (data) => {
 
         const token = await getToken()
-        data.token = token
-        data.clerkid = userId
-     
+        createprofile(token,data)
+        .then((res)=>{
+            console.log(res);
+            
+        })
+        .catch((err)=>{
+            console.log(err);
+            
+        })
 
-        await axios.post('http://localhost:5000/api/profile', data)
-            .then((res) => {
-                console.log(res.data);
-
-            })
-            .catch((errors) => {
-                console.log('Profile', errors.response.data.message);
-
-            })
     };
 
     return (
