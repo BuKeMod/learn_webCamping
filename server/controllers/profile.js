@@ -1,15 +1,25 @@
 import renderError from "../utils/renderError.js";
+import { prisma } from "../config/prisma.js";
 
-const createProfile = (req, res, next) => {
+const createProfile = async (req, res, next) => {
         try {
                 const { firstname, lastname} = req.body
+                const { id } = req.user
+                const email = req.user.emailAddresses[0].emailAddress
 
-               console.log(req.user);
-               
-                console.log('create Profile success');
+                const profile = await prisma.profile.create({
+                        data:{
+                                clerkId: id,
+                                firstname,
+                                lastname,
+                                email
+
+                        }
+                })
+            
                 
 
-                res.json({ message: "create Profile success" })
+                res.json({result:profile, message: "create Profile success" })
                 
                 
         } catch (error) {

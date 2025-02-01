@@ -26,13 +26,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 
-// readdirSync('./routes').forEach(async (filename) => {
-
-//   const { default: route } = await import(`./routes/${filename}`);
-//   app.use('/api', route);
-//   app.use(handleError);
-// });
-
 const routeFiles = readdirSync('./routes');
 
 await Promise.all(
