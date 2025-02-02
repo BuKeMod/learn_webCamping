@@ -9,7 +9,15 @@ import CategoryInput from "@/components/form/CategoryInput";
 import Mainmap from "@/components/map/Mainmap";
 
 
+import createCamping from "@/service/camping";
+
+
+import { useAuth } from "@clerk/clerk-react";
+
+
 const Camping = () => {
+    const { getToken,userId } = useAuth()
+
     const { register, handleSubmit,formState ,setValue } = useForm({ 
         resolver: zodResolver(campingSchema) 
     });
@@ -18,10 +26,20 @@ const Camping = () => {
 
     
     const CampingSubmit = async (data) => {
-
-        await new Promise((resolove)=> setTimeout(resolove,3000))
         
-        console.log(data);
+        // await new Promise((resolove)=> setTimeout(resolove,1000))
+        const token = await getToken()
+     
+        
+        createCamping(token,data)
+        .then((res)=>{
+            console.log(res.data);
+            
+        })
+        .catch((err)=>{
+            console.log(err);
+            
+        })
 
     };
 

@@ -38,7 +38,7 @@ const readCamping = (req, res) => {
 
 const createCamping = (req,res)=>{
     try {
-        res.send('Create')
+        res.send('Create Camping')
     } catch (error) {
         console.log(error.message);
         res.status(500).json({

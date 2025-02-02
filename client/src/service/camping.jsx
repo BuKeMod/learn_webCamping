@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const createprofile = async (token, data) => {
-
-    return await axios.post('http://localhost:5000/api/profile', data
+const createCamping = async (token, data) => {
+    return await axios.post('http://localhost:5000/api/camping', data
         , {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -12,4 +11,4 @@ const createprofile = async (token, data) => {
 
 }
 
-export default createprofile
+export default createCamping

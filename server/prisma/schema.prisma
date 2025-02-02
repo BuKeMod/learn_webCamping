@@ -4,6 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// npx prisma migrate dev --name "update_"
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,11 +15,27 @@ datasource db {
 }
 
 model Profile {
-  id Int @id @default(autoincrement())
-  clerkId String
-  firstname String 
-  lastname String
-  email String
+  id        Int      @id @default(autoincrement())
+  clerkId   String   @unique
+  firstname String
+  lastname  String
+  email     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  landmarks Landmark[]
+}
+
+model Landmark {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  lat         Float
+  lng         Float
+  price       Int
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  profile     Profile @relation(fields: [profileId], references: [clerkId])
+  profileId   String
 }
