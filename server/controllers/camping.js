@@ -1,13 +1,11 @@
 import renderError from "../utils/renderError.js";
+import { prisma } from "../config/prisma.js";
 
-
-const listcamping = (req, res,next) => {
+const listcamping =  async (req, res,next) => {
     try {
-        if (true) {
-            return renderError(401, 'Server Error list')
-            }
+       const campings = await prisma.landmark.findMany()
 
-        res.send('hello controller')
+        res.json({result:campings})
         
     } catch (error) {
         next(error)
@@ -20,11 +18,18 @@ const listcamping = (req, res,next) => {
 
 
 }
-const readCamping = (req, res) => {
+const readCamping = async (req, res) => {
     try {
-        console.log(dfsf);
-        
-        res.send('read')
+        const { id } = req.params
+        const camping = await prisma.landmark.findFirst({
+            where:{
+                id:Number(id)
+            }
+            
+        })
+        res.json({
+            result:camping
+        })
         
     } catch (error) {
         console.log(error.message); 
@@ -36,9 +41,24 @@ const readCamping = (req, res) => {
 
 }
 
-const createCamping = (req,res)=>{
+const createCamping = async (req,res)=>{
     try {
-        res.send('Create Camping')
+        const {title,description,price,category,lat,lng} =req.body
+        const { id } = req.user
+        const camping = await prisma.landmark.create({
+            data:{
+                title,
+                description,
+                price,
+                category,
+                lat,
+                lng,
+                profileId: id
+            }
+        })
+        res.json({
+            message: 'Create Camping successfully'
+        })
     } catch (error) {
         console.log(error.message);
         res.status(500).json({

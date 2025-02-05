@@ -7,12 +7,12 @@ const router = express.Router()
 
 
 
-router.get('/camping',authCheck,listcamping);
+router.get('/camping',listcamping);
 
 router.get('/camping/:id',readCamping);
 
 
-router.post('/camping',createCamping);
+router.post('/camping',authCheck,createCamping);
 
 
 router.put('/camping/:id',updateCamping)
