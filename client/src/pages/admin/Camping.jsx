@@ -13,6 +13,7 @@ import createCamping from "@/service/camping";
 
 
 import { useAuth } from "@clerk/clerk-react";
+import FormUploadimage from "@/components/form/FormUploadimage";
 
 
 const Camping = () => {
@@ -73,13 +74,16 @@ const Camping = () => {
                             placeholder="Input Your Description..."
                             errors={errors}
                         />
+                        <div>
 
                         <CategoryInput
-                        name='category'
+                        name='category'                 
                         register={register}
                         setValue={setValue}
-
+                        
                         />
+                        <FormUploadimage />
+                        </div>
                         
                     </div>
 
@@ -92,7 +96,7 @@ const Camping = () => {
                     
                     <Buttons 
                     text="create camping" 
-                    isPending={isSubmitting} 
+                    isPending={isSubmitting}                                                                                                                     
             
                     
                     />
