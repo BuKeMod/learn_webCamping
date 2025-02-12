@@ -16,6 +16,8 @@ const Layers = () => {
             .catch((err) => console.log(err))
 
     }
+    console.log(landmarks);
+    
     return (
         <LayersControl>
 
@@ -36,7 +38,7 @@ const Layers = () => {
 
 
 
-            <LayersControl.Overlay name='Landmark'>
+            <LayersControl.Overlay name='Landmark' checked>
                 <LayerGroup>
 
                     {

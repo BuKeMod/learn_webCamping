@@ -7,7 +7,8 @@ export const campingSchema = z.object({
     description: z.string().max(50, "Description must be less than 50 charactor"),
     category: z.string(),
     lat: z.coerce.number(),
-    lng: z.coerce.number()
+    lng: z.coerce.number(),
+    image:z.any()
 })
 export const profileSchema = z.object({
     firstname: z.string()

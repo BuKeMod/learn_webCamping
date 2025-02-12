@@ -19,7 +19,7 @@ import FormUploadimage from "@/components/form/FormUploadimage";
 const Camping = () => {
     const { getToken,userId } = useAuth()
 
-    const { register, handleSubmit,formState ,setValue } = useForm({ 
+    const { register, handleSubmit,formState ,setValue,reset } = useForm({ 
         resolver: zodResolver(campingSchema) 
     });
     const { errors,isSubmitting } = formState
@@ -31,11 +31,12 @@ const Camping = () => {
         // await new Promise((resolove)=> setTimeout(resolove,1000))
         const token = await getToken()
      
+        console.log(data);
         
         createCamping(token,data)
         .then((res)=>{
             console.log(res.data);
-            
+            reset()
         })
         .catch((err)=>{
             console.log(err);
@@ -82,7 +83,7 @@ const Camping = () => {
                         setValue={setValue}
                         
                         />
-                        <FormUploadimage />
+                        <FormUploadimage setValue={setValue} />
                         </div>
                         
                     </div>
