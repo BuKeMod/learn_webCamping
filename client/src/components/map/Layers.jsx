@@ -16,7 +16,7 @@ const Layers = () => {
             .catch((err) => console.log(err))
 
     }
-    console.log(landmarks);
+    // console.log(landmarks);
     
     return (
         <LayersControl>

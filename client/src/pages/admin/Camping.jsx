@@ -14,6 +14,8 @@ import createCamping from "@/service/camping";
 
 import { useAuth } from "@clerk/clerk-react";
 import FormUploadimage from "@/components/form/FormUploadimage";
+import { createAlert } from "@/utils/createAlert";
+
 
 
 const Camping = () => {
@@ -37,9 +39,11 @@ const Camping = () => {
         .then((res)=>{
             console.log(res.data);
             reset()
+           createAlert('success','Create Landmark Success')
         })
         .catch((err)=>{
             console.log(err);
+           createAlert('error',err.message)
             
         })
 
