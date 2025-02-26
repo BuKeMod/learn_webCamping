@@ -1,22 +1,13 @@
 
-import React, { useEffect, useState } from 'react'
+
+import useCampingStore from '@/store/camping-store'
 import { LayersControl, TileLayer, Marker, Popup, LayerGroup, Tooltip } from 'react-leaflet'
-import { listCamping } from '@/service/camping'
+
 
 
 const Layers = () => {
-    const [landmarks, setLandmark] = useState([])
-    useEffect(() => {
-        hdlGetLandmark()
-    }, [])
+   const campings = useCampingStore((state)=>state.campings)
 
-    const hdlGetLandmark = () => {
-        listCamping()
-            .then((res) => setLandmark(res.data.result))
-            .catch((err) => console.log(err))
-
-    }
-    // console.log(landmarks);
     
     return (
         <LayersControl>
@@ -42,7 +33,7 @@ const Layers = () => {
                 <LayerGroup>
 
                     {
-                        landmarks?.map((item) => {
+                        campings?.map((item) => {
 
                             return <Marker key={item.id} position={[item.lat, item.lng]}>
                                 <Popup>

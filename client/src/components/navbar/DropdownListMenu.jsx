@@ -12,7 +12,7 @@ import {
 import { AlignLeft } from 'lucide-react';
 import UserIcon from './UserIcon';
 import { Button } from '../ui/button';
-import { links } from '@/utils/links';
+import { publicLinks,privateLinks } from '@/utils/links';
 import { Link } from 'react-router';
 
 import { SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton, UserButton } from "@clerk/clerk-react";
@@ -34,7 +34,7 @@ const DropdownListMenu = () => {
                 <DropdownMenuSeparator />
 
                 {
-                    links.map((item, index) => {
+                    publicLinks.map((item, index) => {
                         return (
                             <DropdownMenuItem key={index}>
                                 <Link to={item.href}>
@@ -64,6 +64,19 @@ const DropdownListMenu = () => {
 
                 {/* กรณีล็อกอินเเล้ว */}
                 <SignedIn>
+                {
+                    privateLinks.map((item, index) => {
+                        return (
+                            <DropdownMenuItem key={index}>
+                                <Link to={item.href}>
+                                    {item.label}
+                                </Link>
+                            </DropdownMenuItem>
+
+                        )
+                    })
+                }
+                <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         {/* <UserButton />
                         <SignOutButton /> */}

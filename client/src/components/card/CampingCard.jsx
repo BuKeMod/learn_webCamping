@@ -2,7 +2,7 @@ import React from 'react'
 
 const CampingCard = ({ camping }) => {
 
-    console.log(camping);
+    
     
     return (
         <article className='hover:scale-105 transition shadow-sm p-2 rounded-md'>

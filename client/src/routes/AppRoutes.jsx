@@ -10,6 +10,7 @@ import Notfound from "@/pages/Notfound";
 import Profile from "@/pages/user/Profile";
 
 import { BrowserRouter, Routes, Route, Outlet } from "react-router";
+import ProtectRoute from "./ProtectRoute";
 
 const AppRoutes = () => {
     return (
@@ -30,7 +31,7 @@ const AppRoutes = () => {
 
                 {/* Private */}
                 <Route path="admin"
-                    element={<LayoutAdmin />}>
+                    element={<ProtectRoute el={ <LayoutAdmin />} />}>
                     <Route index element={<Dashboard />} />
                     <Route path="manage" element={<Manage />} />
                     <Route path="camping" element={<Camping />} />
