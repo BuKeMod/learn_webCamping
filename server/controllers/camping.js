@@ -9,16 +9,11 @@ const listcamping =  async (req, res,next) => {
         
     } catch (error) {
         next(error)
-        console.log(error.message); 
-        res.status(500).json({
-            message:'Server Error',
-            BuKeMod: 'สู้ๆนะ'
-        })
     }
 
 
 }
-const readCamping = async (req, res) => {
+const readCamping = async (req, res,next) => {
     try {
         const { id } = req.params
         const camping = await prisma.landmark.findFirst({
@@ -32,16 +27,13 @@ const readCamping = async (req, res) => {
         })
         
     } catch (error) {
-        console.log(error.message); 
-        res.status(500).json({
-            message:`${error.message}`
-        })
+        next(error)
         
     }
 
 }
 
-const createCamping = async (req,res)=>{
+const createCamping = async (req,res,next)=>{
     try {
         const {title,description,price,category,lat,lng,image} =req.body
         const { id } = req.user
@@ -63,34 +55,25 @@ const createCamping = async (req,res)=>{
             message: 'Create Camping successfully'
         })
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({
-            message:"server error"
-        })
+        next(error)
         
     }
 }
 
-const updateCamping = (req,res)=>{
+const updateCamping = (req,res,next)=>{
     try {
         res.send('Update')
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({
-            message:'server error'
-        })
+        next(error)
         
     }
 }
 
-const deleteCamping = (req,res)=>{
+const deleteCamping = (req,res,next)=>{
     try {
         res.send('Delete')
     } catch (error) {
-        console.log(error.message);
-        res.status(500).json({
-            message:"server eror"
-        })
+        next(error)
         
     }
 }
